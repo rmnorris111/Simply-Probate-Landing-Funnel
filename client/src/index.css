@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base colors */
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 207 45% 15%; /* #052d49 Navy blue */
+  --primary-foreground: 210 40% 98%;
+  --secondary: 173 61% 46%; /* #2EBFAF Teal */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 173 61% 46%; /* Match secondary */
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 207 45% 15%;
+  --radius: 0.5rem;
+  --light: 210 40% 98%; /* #f8fafc */
+  --dark: 215 28% 17%; /* #1e293b */
+  --muted-color: 217 19% 47%; /* #64748b */
+}
+
+/* Font families */
+@layer base {
+  :root {
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Lato', sans-serif;
+  }
+  
+  body {
+    font-family: 'Lato', sans-serif;
+    @apply antialiased bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+/* Custom animations for quiz transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.fade-enter {
+  animation: fadeIn 300ms ease forwards;
+}
+
+.fade-exit {
+  animation: fadeOut 300ms ease forwards;
+}
+
+/* Custom components */
+@layer components {
+  .container {
+    @apply px-4 mx-auto max-w-6xl;
+  }
+  
+  .benefit-icon {
+    @apply w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4;
+  }
+  
+  .section-title {
+    @apply text-2xl md:text-3xl font-bold text-center mb-8;
+  }
+  
+  .testimonial-card {
+    @apply bg-white rounded-lg p-8 shadow-md relative;
+  }
+}
