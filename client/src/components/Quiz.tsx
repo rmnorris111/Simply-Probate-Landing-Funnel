@@ -198,7 +198,7 @@ const Quiz: React.FC = () => {
                     disabled={selectedValue === ''}
                     className={`px-6 py-3 text-white rounded-md font-medium transition-all ${
                       selectedValue !== '' 
-                        ? 'bg-secondary hover:bg-secondary/90' 
+                        ? 'bg-secondary hover:bg-secondary/90 hover:text-white' 
                         : 'bg-gray-300 cursor-not-allowed'
                     }`}
                   >
@@ -275,7 +275,7 @@ const Quiz: React.FC = () => {
                       <button 
                         type="submit"
                         disabled={formSubmitting}
-                        className={`w-full py-3 bg-secondary text-white rounded-md font-medium hover:bg-secondary/90 transition-all ${
+                        className={`w-full py-3 bg-secondary text-white rounded-md font-medium hover:bg-secondary/90 hover:text-white transition-all ${
                           formSubmitting ? 'opacity-75 cursor-wait' : ''
                         }`}
                       >
@@ -293,7 +293,7 @@ const Quiz: React.FC = () => {
                   <div className="mt-8">
                     <a 
                       href="/"
-                      className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 transition-all"
+                      className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
                     >
                       Return to Homepage
                     </a>
