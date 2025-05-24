@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Benefits from '@/components/Benefits';
 import Testimonials from '@/components/Testimonials';
+import Pricing from '@/components/Pricing';
 import Quiz from '@/components/Quiz';
 import CallToAction from '@/components/CallToAction';
 import Footer from '@/components/Footer';
