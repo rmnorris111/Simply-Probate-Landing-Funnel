@@ -70,8 +70,7 @@ const Quiz: React.FC = () => {
       // Simulating form submission
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // In a production environment, this would be an API call
-      // For this static demo, we'll just show success and move to the next screen
+      // Log form data for debugging
       console.log('Form submitted with:', {
         answers,
         formData
@@ -79,10 +78,15 @@ const Quiz: React.FC = () => {
       
       toast({
         title: "Form submitted successfully!",
-        description: "We'll be in touch soon.",
+        description: "Redirecting to booking calendar...",
       });
       
-      setCurrentScreen('thankYou');
+      // Redirect to Calendly after a short delay
+      setTimeout(() => {
+        window.open('https://calendly.com/rionnorris/15min', '_blank');
+        setCurrentScreen('thankYou');
+      }, 1000);
+      
     } catch (error) {
       toast({
         title: "Error submitting form",
@@ -264,7 +268,7 @@ const Quiz: React.FC = () => {
                       }`}
                     >
                       {!formSubmitting ? (
-                        <span>Get Your Personalized Probate Plan</span>
+                        <span>Book My Free 15 Mins Call</span>
                       ) : (
                         <span>
                           <span className="mr-2">⏳</span> Submitting...
