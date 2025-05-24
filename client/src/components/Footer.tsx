@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2 text-gray-400">
               <li>
                 <span className="mr-2 text-secondary">📞</span>
-                <a href="tel:0800777123" className="hover:text-white transition-colors">0800 777 123</a>
+                <a href="tel:0276036144" className="hover:text-white transition-colors">027 603 6144</a>
               </li>
               <li>
                 <span className="mr-2 text-secondary">✉️</span>
@@ -48,16 +48,16 @@ const Footer: React.FC = () => {
                 <a href="#" className="hover:text-white transition-colors">About Us</a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">Services</a>
+                <a href="https://simplyprobate.co.nz/services" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Services</a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">FAQs</a>
+                <a href="https://simplyprobate.co.nz/faq" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">FAQs</a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="https://simplyprobate.co.nz/privacy-policy" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+                <a href="https://simplyprobate.co.nz/terms-of-service" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Terms of Service</a>
               </li>
             </ul>
           </div>
