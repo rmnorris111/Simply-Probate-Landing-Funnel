@@ -3,21 +3,15 @@ import React, { useState } from 'react';
 const testimonials = [
   {
     quote: "Rion Norris provided an excellent service, exceeding our expectations. We were dealing with a small estate where the deceased and his surviving spouse lived in Europe, but where we had to obtain Probate in NZ in order to deal with a single asset. Rion has a very efficient process which made everything happen without hiccup. His charge was well below the competitive quotes of other law firms and represented excellent value. I have no hesitation in recommending his services.",
-    name: "Simon Marks",
-    location: "2 weeks ago",
-    initials: "S"
+    name: "Simon Marks"
   },
   {
     quote: "Excellent, Friendly service. Rion & Abby took the whole angst out of dealing with the Intestacy and probate applications. From our original phone conversation to the receiving of the documents, it was a seamless process. Very grateful, Thank you.",
-    name: "Julie Hollamby",
-    location: "2 days ago",
-    initials: "J"
+    name: "Julie Hollamby"
   },
   {
     quote: "Simply Probate is a breath of fresh air in the world of legal companies. I am so glad such a firm exists. Their service is great. They respond promptly and do an outstanding job. Their price is also very good. More importantly I like the business model that they use. Their process is very transparent. While they generate the application for probate document based on data I entered in an online form, they allow me to submit the application to probate and therefore I am in charge. This is such a contrast to other legal firms where you have no control over what happens and pay a very high fee.",
-    name: "Jane Shearer",
-    location: "22 hours ago",
-    initials: "J"
+    name: "Jane Shearer"
   }
 ];
 
@@ -59,12 +53,8 @@ const Testimonials: React.FC = () => {
                       {testimonial.quote}
                     </p>
                     <div className="flex items-center">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                        <span className="text-primary font-bold">{testimonial.initials}</span>
-                      </div>
                       <div>
                         <h4 className="font-semibold">{testimonial.name}</h4>
-                        <p className="text-sm text-muted-color">{testimonial.location}</p>
                       </div>
                     </div>
                   </div>
