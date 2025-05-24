@@ -35,7 +35,7 @@ const Testimonials: React.FC = () => {
   return (
     <section className="py-12 md:py-20 bg-light">
       <div className="container mx-auto px-4">
-        <h2 className="section-title font-heading">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
           What Our Clients Say
         </h2>
         <p className="text-center text-muted-color mb-12 max-w-2xl mx-auto">
@@ -63,7 +63,7 @@ const Testimonials: React.FC = () => {
                         <span className="text-primary font-bold">{testimonial.initials}</span>
                       </div>
                       <div>
-                        <h4 className="font-heading font-semibold">{testimonial.name}</h4>
+                        <h4 className="font-semibold">{testimonial.name}</h4>
                         <p className="text-sm text-muted-color">{testimonial.location}</p>
                       </div>
                     </div>

@@ -37,7 +37,7 @@ const Benefits: React.FC = () => {
   return (
     <section className="py-12 md:py-20 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="section-title font-heading">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
           How Simply Probate Makes the Process Easier
         </h2>
         
@@ -47,7 +47,7 @@ const Benefits: React.FC = () => {
               <div className="benefit-icon">
                 <span className="text-secondary text-xl">{benefit.icon}</span>
               </div>
-              <h3 className="text-xl font-heading font-semibold mb-3">{benefit.title}</h3>
+              <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
               <p className="text-muted-color">{benefit.description}</p>
             </div>
           ))}
