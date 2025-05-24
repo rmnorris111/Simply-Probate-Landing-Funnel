@@ -61,9 +61,14 @@ const Pricing: React.FC = () => {
                 </li>
               </ul>
               
-              <button className="w-full py-3 bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all">
-                Start Your Application Now
-              </button>
+              <a 
+                href="https://thedisputelawyer.gavel.io/start/playground2/Simply%20Probate%20application%20for%20probate"
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
+              >
+                Start Application Online Now
+              </a>
             </div>
           </div>
           
@@ -121,9 +126,14 @@ const Pricing: React.FC = () => {
                 </li>
               </ul>
               
-              <button className="w-full py-3 bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all">
-                Start Your Application Now
-              </button>
+              <a 
+                href="https://thedisputelawyer.gavel.io/start/playground2/Simply%20Probate%20application%20for%20probate"
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
+              >
+                Start Application Online Now
+              </a>
             </div>
           </div>
         </div>
