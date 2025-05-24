@@ -5,7 +5,7 @@ const Header: React.FC = () => {
     <header className="bg-primary text-white">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex items-center">
-          <h1 className="text-xl font-heading font-bold">Simply Probate</h1>
+          <h1 className="text-xl font-bold">Simply Probate</h1>
         </div>
         <div>
           <a href="tel:0800777123" className="text-white font-bold text-sm md:text-base">

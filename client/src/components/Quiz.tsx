@@ -157,7 +157,7 @@ const Quiz: React.FC = () => {
                       onClick={previousQuestion}
                       className="px-4 py-2 text-primary font-medium hover:text-secondary transition-colors"
                     >
-                      <i className="fas fa-arrow-left mr-2"></i> Previous
+                      <span className="mr-2">←</span> Previous
                     </button>
                   )}
                   {currentQuestionIndex === 0 && <div></div>}
@@ -170,7 +170,7 @@ const Quiz: React.FC = () => {
                         : 'bg-gray-300 cursor-not-allowed'
                     }`}
                   >
-                    Next <i className="fas fa-arrow-right ml-2"></i>
+                    Next <span className="ml-2">→</span>
                   </button>
                 </div>
               </div>
@@ -181,7 +181,7 @@ const Quiz: React.FC = () => {
               <div className="fade-enter">
                 <div className="text-center mb-8">
                   <div className="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i className="fas fa-check text-secondary text-2xl"></i>
+                    <span className="text-secondary text-2xl">✓</span>
                   </div>
                   <h3 className="text-xl md:text-2xl font-heading font-semibold mb-2">Your Assessment Results</h3>
                   <p className="text-muted-color">Based on your answers, we can provide you with personalized guidance.</p>
@@ -267,7 +267,7 @@ const Quiz: React.FC = () => {
                         <span>Get Your Personalized Probate Plan</span>
                       ) : (
                         <span>
-                          <i className="fas fa-spinner fa-spin mr-2"></i> Submitting...
+                          <span className="mr-2">⏳</span> Submitting...
                         </span>
                       )}
                     </button>
@@ -281,7 +281,7 @@ const Quiz: React.FC = () => {
               <div className="fade-enter">
                 <div className="text-center py-8">
                   <div className="w-20 h-20 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i className="fas fa-check text-secondary text-3xl"></i>
+                    <span className="text-secondary text-3xl">✓</span>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-heading font-semibold mb-4">Thank You!</h3>
                   <p className="text-muted-color mb-6">

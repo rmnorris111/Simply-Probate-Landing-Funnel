@@ -12,13 +12,13 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-white hover:text-secondary transition-colors" aria-label="Facebook">
-                <i className="fab fa-facebook-f"></i>
+                <span>👥</span>
               </a>
               <a href="#" className="text-white hover:text-secondary transition-colors" aria-label="LinkedIn">
-                <i className="fab fa-linkedin-in"></i>
+                <span>💼</span>
               </a>
               <a href="#" className="text-white hover:text-secondary transition-colors" aria-label="Twitter">
-                <i className="fab fa-twitter"></i>
+                <span>🐦</span>
               </a>
             </div>
           </div>
@@ -27,15 +27,15 @@ const Footer: React.FC = () => {
             <h3 className="font-heading font-bold text-lg mb-4">Contact Us</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <i className="fas fa-phone-alt mr-2 text-secondary"></i>
+                <span className="mr-2 text-secondary">📞</span>
                 <a href="tel:0800777123" className="hover:text-white transition-colors">0800 777 123</a>
               </li>
               <li>
-                <i className="fas fa-envelope mr-2 text-secondary"></i>
+                <span className="mr-2 text-secondary">✉️</span>
                 <a href="mailto:info@simplyprobate.co.nz" className="hover:text-white transition-colors">info@simplyprobate.co.nz</a>
               </li>
               <li>
-                <i className="fas fa-map-marker-alt mr-2 text-secondary"></i>
+                <span className="mr-2 text-secondary">📍</span>
                 Auckland, Wellington, Christchurch
               </li>
             </ul>
