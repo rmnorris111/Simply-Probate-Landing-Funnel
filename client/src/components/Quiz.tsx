@@ -231,7 +231,7 @@ const Quiz: React.FC = () => {
                 {isQualified ? (
                   <div className="mt-6">
                     <a 
-                      href="https://calendly.com/rionnorris/15min" 
+                      href="https://calendly.com/rionnorris/15min?hide_event_type_details=1&hide_gdpr_banner=1&background_color=f5f7fa&text_color=333333&primary_color=2563eb&success_redirect_url=https://quiz.simplyprobate.co.nz/thank-you" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="w-full block py-3 text-center bg-secondary text-white rounded-md font-medium hover:bg-white hover:text-secondary border border-secondary transition-all"
