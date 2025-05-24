@@ -314,7 +314,7 @@ const Quiz: React.FC = () => {
                     We've received your information and a probate specialist will contact you within 24 hours at your preferred time.
                   </p>
                   <p className="font-medium">
-                    Meanwhile, you can call us directly at <a href="tel:0800777123" className="text-secondary hover:underline">0800 777 123</a> if you have urgent questions.
+                    Meanwhile, you can call us directly at <a href="tel:0276036144" className="text-secondary hover:underline">027 603 6144</a> if you have urgent questions.
                   </p>
                 </div>
               </div>

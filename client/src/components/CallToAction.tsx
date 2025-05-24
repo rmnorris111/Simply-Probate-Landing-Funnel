@@ -25,10 +25,10 @@ const CallToAction: React.FC = () => {
             Start Free Assessment
           </button>
           <a 
-            href="tel:0800777123" 
+            href="tel:0276036144" 
             className="bg-white hover:bg-opacity-90 transition-all text-primary font-bold py-3 px-6 rounded-md text-center"
           >
-            <span className="mr-2">📞</span>Call 0800 777 123
+            <span className="mr-2">📞</span>Call 027 603 6144
           </a>
         </div>
       </div>
