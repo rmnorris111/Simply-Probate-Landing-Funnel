@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 const VideoPlayer: React.FC = () => {
   const [playing, setPlaying] = useState(false);
   
-  // Replace with actual video URL in production
-  const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
+  // Using the provided YouTube video
+  const videoUrl = "https://www.youtube.com/embed/jbhZJBUpz94?autoplay=1";
   
   const handlePlay = () => {
     setPlaying(true);
