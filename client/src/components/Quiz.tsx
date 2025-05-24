@@ -6,7 +6,6 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
-  contactTime: 'morning' | 'afternoon' | 'evening';
 }
 
 const Quiz: React.FC = () => {
@@ -18,8 +17,7 @@ const Quiz: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    phone: '',
-    contactTime: 'morning'
+    phone: ''
   });
 
   const progressPercentage = (currentQuestionIndex / quizQuestions.length) * 100;
@@ -239,24 +237,7 @@ const Quiz: React.FC = () => {
                       />
                     </div>
                     
-                    <div>
-                      <label className="block text-sm font-medium text-dark mb-1">Best Time to Contact You</label>
-                      <div className="grid grid-cols-3 gap-3">
-                        {['morning', 'afternoon', 'evening'].map((time) => (
-                          <label key={time} className="flex items-center bg-light p-3 rounded-md border border-gray-200 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="contactTime" 
-                              value={time}
-                              checked={formData.contactTime === time}
-                              onChange={handleFormChange}
-                              className="mr-2"
-                            />
-                            <span className="capitalize">{time}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
+                    {/* Contact time selection removed since we're using Calendly */}
                   </div>
                   
                   <div className="mt-8">
