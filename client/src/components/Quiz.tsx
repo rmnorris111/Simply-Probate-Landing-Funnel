@@ -187,7 +187,7 @@ const Quiz: React.FC = () => {
                   {currentQuestionIndex > 0 && (
                     <button 
                       onClick={previousQuestion}
-                      className="px-4 py-2 text-primary font-medium hover:text-secondary transition-colors"
+                      className="px-4 py-2 text-primary font-medium hover:text-secondary hover:underline transition-all"
                     >
                       <span className="mr-2">←</span> Previous
                     </button>
@@ -196,10 +196,10 @@ const Quiz: React.FC = () => {
                   <button 
                     onClick={nextQuestion}
                     disabled={selectedValue === ''}
-                    className={`px-6 py-3 text-white rounded-md font-medium transition-all ${
+                    className={`px-6 py-3 rounded-md font-medium transition-all ${
                       selectedValue !== '' 
-                        ? 'bg-secondary hover:bg-secondary/90 hover:text-white' 
-                        : 'bg-gray-300 cursor-not-allowed'
+                        ? 'bg-secondary text-white hover:bg-white hover:text-secondary border border-secondary' 
+                        : 'bg-gray-300 text-white cursor-not-allowed'
                     }`}
                   >
                     Next <span className="ml-2">→</span>
@@ -275,7 +275,7 @@ const Quiz: React.FC = () => {
                       <button 
                         type="submit"
                         disabled={formSubmitting}
-                        className={`w-full py-3 bg-secondary text-white rounded-md font-medium hover:bg-secondary/90 hover:text-white transition-all ${
+                        className={`w-full py-3 bg-secondary text-white rounded-md font-medium hover:bg-white hover:text-secondary border border-secondary transition-all ${
                           formSubmitting ? 'opacity-75 cursor-wait' : ''
                         }`}
                       >
@@ -293,7 +293,7 @@ const Quiz: React.FC = () => {
                   <div className="mt-8">
                     <a 
                       href="/"
-                      className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
+                      className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-white hover:text-primary border border-primary transition-all"
                     >
                       Return to Homepage
                     </a>

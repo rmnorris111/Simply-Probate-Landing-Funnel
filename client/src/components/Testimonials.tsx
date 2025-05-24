@@ -32,9 +32,7 @@ const Testimonials: React.FC = () => {
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
           What Our Clients Say
         </h2>
-        <p className="text-center text-muted-color mb-12 max-w-2xl mx-auto">
-          We've helped hundreds of families through the probate process. Here's what some of them have to say about our services.
-        </p>
+        <p className="text-center text-muted-color mb-12 max-w-2xl mx-auto">We've helped hundreds of clients through the probate process. Here's what some of them have to say about our services in google.</p>
         
         {/* Testimonial Slider */}
         <div className="relative">
