@@ -74,9 +74,9 @@ const ThankYou: React.FC = () => {
           </div>
           <div className="mt-12">
             <Link href="/">
-              <a className="text-primary hover:text-secondary transition-colors">
+              <span className="text-primary hover:text-secondary transition-colors cursor-pointer">
                 ← Return to homepage
-              </a>
+              </span>
             </Link>
           </div>
         </div>
