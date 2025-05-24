@@ -47,7 +47,7 @@ const ThankYou: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-gray-700">
-                    We'll call you at your scheduled time to discuss your specific situation
+                    We'll call you at your scheduled time on 027 603 6144 to discuss your specific situation
                   </p>
                 </div>
               </div>
