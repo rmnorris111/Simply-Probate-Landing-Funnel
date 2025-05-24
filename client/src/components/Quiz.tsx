@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
-import { quizQuestions } from '@/lib/quiz';
+import { quizQuestions, calculateQuizResult, getResultMessage } from '@/lib/quiz';
 
 interface FormData {
   name: string;
@@ -10,10 +10,12 @@ interface FormData {
 
 const Quiz: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string>('');
   const [currentScreen, setCurrentScreen] = useState<'question' | 'results' | 'thankYou'>('question');
   const [formSubmitting, setFormSubmitting] = useState(false);
-  const [answers, setAnswers] = useState<number[]>([]);
+  const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
+  const [resultMessage, setResultMessage] = useState('');
+  const [isQualified, setIsQualified] = useState(true);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -22,24 +24,31 @@ const Quiz: React.FC = () => {
 
   const progressPercentage = (currentQuestionIndex / quizQuestions.length) * 100;
 
-  const selectOption = (index: number) => {
-    setSelectedOption(index);
+  const selectOption = (value: string) => {
+    setSelectedValue(value);
   };
 
   const nextQuestion = () => {
-    if (selectedOption === null) return;
+    if (selectedValue === '') return;
     
     // Save answer
-    const newAnswers = [...answers];
-    newAnswers[currentQuestionIndex] = selectedOption;
-    setAnswers(newAnswers);
+    const currentQuestion = quizQuestions[currentQuestionIndex];
+    const newAnswers = { ...quizAnswers };
+    newAnswers[currentQuestion.id] = selectedValue;
+    setQuizAnswers(newAnswers);
     
     // Move to next question or results
     if (currentQuestionIndex < quizQuestions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
-      setSelectedOption(newAnswers[currentQuestionIndex + 1] !== undefined ? 
-                       newAnswers[currentQuestionIndex + 1] : null);
+      
+      // Set selected value for next question if it exists
+      const nextQuestion = quizQuestions[currentQuestionIndex + 1];
+      setSelectedValue(newAnswers[nextQuestion.id] || '');
     } else {
+      // Calculate results and move to results screen
+      const result = calculateQuizResult(newAnswers);
+      setIsQualified(result.isQualified);
+      setResultMessage(getResultMessage(result, newAnswers));
       setCurrentScreen('results');
     }
   };
@@ -47,8 +56,10 @@ const Quiz: React.FC = () => {
   const previousQuestion = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(prev => prev - 1);
-      setSelectedOption(answers[currentQuestionIndex - 1] !== undefined ? 
-                       answers[currentQuestionIndex - 1] : null);
+      
+      // Set selected value for previous question
+      const prevQuestion = quizQuestions[currentQuestionIndex - 1];
+      setSelectedValue(quizAnswers[prevQuestion.id] || '');
     }
   };
 
@@ -70,7 +81,7 @@ const Quiz: React.FC = () => {
       
       // Log form data for debugging
       console.log('Form submitted with:', {
-        answers,
+        quizAnswers,
         formData
       });
       
@@ -124,13 +135,17 @@ const Quiz: React.FC = () => {
                   {quizQuestions[currentQuestionIndex].question}
                 </h3>
                 
+                {quizQuestions[currentQuestionIndex].helpText && (
+                  <p className="text-gray-600 mb-6">{quizQuestions[currentQuestionIndex].helpText}</p>
+                )}
+                
                 <div className="space-y-4">
-                  {quizQuestions[currentQuestionIndex].options.map((option, index) => (
+                  {quizQuestions[currentQuestionIndex].options.map((option) => (
                     <div 
-                      key={index}
-                      onClick={() => selectOption(index)}
+                      key={option.value}
+                      onClick={() => selectOption(option.value)}
                       className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
-                        selectedOption === index 
+                        selectedValue === option.value
                           ? 'border-secondary bg-secondary/5' 
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
@@ -138,16 +153,16 @@ const Quiz: React.FC = () => {
                       <div className="flex items-center">
                         <div 
                           className={`w-5 h-5 rounded-full border-2 flex-shrink-0 mr-3 flex items-center justify-center ${
-                            selectedOption === index 
+                            selectedValue === option.value
                               ? 'bg-secondary border-transparent' 
                               : 'border-gray-300'
                           }`}
                         >
-                          {selectedOption === index && (
+                          {selectedValue === option.value && (
                             <div className="w-2 h-2 bg-white rounded-full" />
                           )}
                         </div>
-                        <span>{option}</span>
+                        <span>{option.text}</span>
                       </div>
                     </div>
                   ))}
@@ -165,9 +180,9 @@ const Quiz: React.FC = () => {
                   {currentQuestionIndex === 0 && <div></div>}
                   <button 
                     onClick={nextQuestion}
-                    disabled={selectedOption === null}
+                    disabled={selectedValue === ''}
                     className={`px-6 py-3 text-white rounded-md font-medium transition-all ${
-                      selectedOption !== null 
+                      selectedValue !== '' 
                         ? 'bg-secondary hover:bg-secondary/90' 
                         : 'bg-gray-300 cursor-not-allowed'
                     }`}
@@ -191,73 +206,84 @@ const Quiz: React.FC = () => {
                 
                 <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
                   <h4 className="font-heading font-semibold mb-4">Our Recommendation:</h4>
-                  <p className="mb-4">It appears you may need probate services to handle the estate properly. Our team can help make this process smooth and stress-free.</p>
-                  <p>Complete the form below to receive detailed information specific to your situation.</p>
+                  <p className="mb-4">{resultMessage}</p>
+                  {isQualified && (
+                    <p>Complete the form below to book your free consultation with our probate specialist.</p>
+                  )}
                 </div>
                 
-                {/* Lead Capture Form */}
-                <form onSubmit={submitForm}>
-                  <div className="space-y-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-dark mb-1">Full Name</label>
-                      <input 
-                        type="text" 
-                        id="name" 
-                        name="name"
-                        value={formData.name}
-                        onChange={handleFormChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary"
-                        required
-                      />
+                {/* Lead Capture Form - Only show if qualified */}
+                {isQualified ? (
+                  <form onSubmit={submitForm}>
+                    <div className="space-y-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-dark mb-1">Full Name</label>
+                        <input 
+                          type="text" 
+                          id="name" 
+                          name="name"
+                          value={formData.name}
+                          onChange={handleFormChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary"
+                          required
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-dark mb-1">Email Address</label>
+                        <input 
+                          type="email" 
+                          id="email" 
+                          name="email"
+                          value={formData.email}
+                          onChange={handleFormChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary"
+                          required
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="phone" className="block text-sm font-medium text-dark mb-1">Phone Number</label>
+                        <input 
+                          type="tel" 
+                          id="phone" 
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleFormChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary"
+                          required
+                        />
+                      </div>
                     </div>
                     
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-dark mb-1">Email Address</label>
-                      <input 
-                        type="email" 
-                        id="email" 
-                        name="email"
-                        value={formData.email}
-                        onChange={handleFormChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary"
-                        required
-                      />
+                    <div className="mt-8">
+                      <button 
+                        type="submit"
+                        disabled={formSubmitting}
+                        className={`w-full py-3 bg-secondary text-white rounded-md font-medium hover:bg-secondary/90 transition-all ${
+                          formSubmitting ? 'opacity-75 cursor-wait' : ''
+                        }`}
+                      >
+                        {!formSubmitting ? (
+                          <span>Book My Free 15 Mins Call</span>
+                        ) : (
+                          <span>
+                            <span className="mr-2">⏳</span> Submitting...
+                          </span>
+                        )}
+                      </button>
                     </div>
-                    
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-dark mb-1">Phone Number</label>
-                      <input 
-                        type="tel" 
-                        id="phone" 
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleFormChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary"
-                        required
-                      />
-                    </div>
-                    
-                    {/* Contact time selection removed since we're using Calendly */}
-                  </div>
-                  
+                  </form>
+                ) : (
                   <div className="mt-8">
-                    <button 
-                      type="submit"
-                      disabled={formSubmitting}
-                      className={`w-full py-3 bg-secondary text-white rounded-md font-medium hover:bg-secondary/90 transition-all ${
-                        formSubmitting ? 'opacity-75 cursor-wait' : ''
-                      }`}
+                    <a 
+                      href="/"
+                      className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 transition-all"
                     >
-                      {!formSubmitting ? (
-                        <span>Book My Free 15 Mins Call</span>
-                      ) : (
-                        <span>
-                          <span className="mr-2">⏳</span> Submitting...
-                        </span>
-                      )}
-                    </button>
+                      Return to Homepage
+                    </a>
                   </div>
-                </form>
+                )}
               </div>
             )}
             
