@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <span className="mr-2 text-secondary">✉️</span>
-                <a href="mailto:info@simplyprobate.co.nz" className="hover:text-white transition-colors">info@simplyprobate.co.nz</a>
+                <a href="mailto:rion@rionnorris.com" className="hover:text-white transition-colors">rion@rionnorris.com</a>
               </li>
               <li>
                 <span className="mr-2 text-secondary">📍</span>
