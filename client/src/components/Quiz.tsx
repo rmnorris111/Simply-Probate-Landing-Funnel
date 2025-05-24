@@ -223,72 +223,25 @@ const Quiz: React.FC = () => {
                   <h4 className="font-heading font-semibold mb-4">Our Recommendation:</h4>
                   <p className="mb-4">{resultMessage}</p>
                   {isQualified && (
-                    <p>Complete the form below to book your free consultation with our probate specialist.</p>
+                    <p>Click the button below to book your free consultation with our probate specialist.</p>
                   )}
                 </div>
                 
-                {/* Lead Capture Form - Only show if qualified */}
+                {/* Calendly Button - Only show if qualified */}
                 {isQualified ? (
-                  <form onSubmit={submitForm}>
-                    <div className="space-y-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-dark mb-1">Full Name</label>
-                        <input 
-                          type="text" 
-                          id="name" 
-                          name="name"
-                          value={formData.name}
-                          onChange={handleFormChange}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary"
-                          required
-                        />
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-dark mb-1">Email Address</label>
-                        <input 
-                          type="email" 
-                          id="email" 
-                          name="email"
-                          value={formData.email}
-                          onChange={handleFormChange}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary"
-                          required
-                        />
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-dark mb-1">Phone Number</label>
-                        <input 
-                          type="tel" 
-                          id="phone" 
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleFormChange}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary"
-                          required
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="mt-8">
-                      <button 
-                        type="submit"
-                        disabled={formSubmitting}
-                        className={`w-full py-3 bg-secondary text-white rounded-md font-medium hover:bg-white hover:text-secondary border border-secondary transition-all ${
-                          formSubmitting ? 'opacity-75 cursor-wait' : ''
-                        }`}
-                      >
-                        {!formSubmitting ? (
-                          <span>Book My Free 15 Mins Call</span>
-                        ) : (
-                          <span>
-                            <span className="mr-2">⏳</span> Submitting...
-                          </span>
-                        )}
-                      </button>
-                    </div>
-                  </form>
+                  <div className="mt-6">
+                    <a 
+                      href="https://calendly.com/rionnorris/15min" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="w-full block py-3 text-center bg-secondary text-white rounded-md font-medium hover:bg-white hover:text-secondary border border-secondary transition-all"
+                    >
+                      Book My Free 15 Mins Call
+                    </a>
+                    <p className="text-sm text-gray-500 mt-3 text-center">
+                      You'll be redirected to our scheduling system to select a convenient time.
+                    </p>
+                  </div>
                 ) : (
                   <div className="mt-8">
                     <a 
