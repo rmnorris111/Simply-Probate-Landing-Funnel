@@ -45,8 +45,17 @@ const Quiz: React.FC = () => {
       const nextQuestion = quizQuestions[currentQuestionIndex + 1];
       setSelectedValue(newAnswers[nextQuestion.id] || '');
     } else {
-      // Calculate results and move to results screen
+      // Calculate results and take appropriate action based on result
       const result = calculateQuizResult(newAnswers);
+      
+      // Handle redirections based on nextAction
+      if (result.nextAction === 'home') {
+        // Redirect to main website
+        window.location.href = 'https://simplyprobate.co.nz';
+        return;
+      }
+      
+      // Only show results screen if not redirected
       setIsQualified(result.isQualified);
       setResultMessage(getResultMessage(result, newAnswers));
       setCurrentScreen('results');
@@ -90,11 +99,17 @@ const Quiz: React.FC = () => {
         description: "Redirecting to booking calendar...",
       });
       
-      // Redirect to Calendly after a short delay
-      setTimeout(() => {
+      // Get result again to determine calendar action
+      const result = calculateQuizResult(quizAnswers);
+      if (result.nextAction === 'calendar') {
+        // Redirect to Calendly
+        window.location.href = 'https://calendly.com/rionnorris/15min';
+        return;
+      } else {
+        // Normal flow - open in new tab and show thank you screen
         window.open('https://calendly.com/rionnorris/15min', '_blank');
         setCurrentScreen('thankYou');
-      }, 1000);
+      }
       
     } catch (error) {
       toast({
