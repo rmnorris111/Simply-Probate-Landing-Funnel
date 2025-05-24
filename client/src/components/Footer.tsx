@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <span className="mr-2 text-secondary">📍</span>
-                Auckland, Wellington, Christchurch
+                Nationwide
               </li>
             </ul>
           </div>
