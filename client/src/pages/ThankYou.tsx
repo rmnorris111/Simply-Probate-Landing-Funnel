@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'wouter';
 
 const ThankYou: React.FC = () => {
+  useEffect(() => {
+    // Fire Google Ads conversion tracking
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {'send_to': 'AW-10968829596/4RCxCPSl2cQaEJydrO4o'});
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 pt-16 pb-12 flex flex-col items-center">
       <div className="container max-w-4xl mx-auto px-4">
