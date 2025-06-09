@@ -20,45 +20,54 @@
     <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
     <script>
       let chatClicked = false;
-      let initialLoadComplete = false;
+      let preventAutoOpen = true;
       
       function handleChatAutoOpen() {
-        // Only hide auto-open during initial page load
-        if (!initialLoadComplete && !chatClicked) {
-          const chatElements = document.querySelectorAll('[role="dialog"], .modal, .popup');
+        if (preventAutoOpen && !chatClicked) {
+          const chatElements = document.querySelectorAll('[role="dialog"], .modal, .popup, div[style*="position: fixed"]');
           chatElements.forEach(el => {
-            if (el.textContent && (el.textContent.includes('Hi!') || el.textContent.includes('help'))) {
+            // Check if it's a chat element by looking for chat-like content
+            if (el.textContent && (
+              el.textContent.includes('Hi!') || 
+              el.textContent.includes('help') ||
+              el.textContent.includes('How can I help') ||
+              el.querySelector('form, input, textarea')
+            )) {
               el.style.display = 'none';
             }
           });
         }
       }
       
-      // Hide auto-open for first 3 seconds after page load
-      setTimeout(() => {
-        initialLoadComplete = true;
-      }, 3000);
+      // Prevent auto-open indefinitely until user clicks
+      const autoOpenInterval = setInterval(handleChatAutoOpen, 50);
       
-      // Monitor for auto-open during initial load
-      const autoOpenInterval = setInterval(() => {
-        if (initialLoadComplete) {
-          clearInterval(autoOpenInterval);
-          return;
-        }
-        handleChatAutoOpen();
-      }, 100);
-      
-      // Listen for clicks on chat button to allow manual opening
+      // Listen for clicks on chat button
       document.addEventListener('click', (e) => {
-        const chatButton = e.target.closest('button, div[role="button"]');
+        const target = e.target;
+        const chatButton = target.closest('button, div[role="button"], div[style*="position: fixed"]');
+        
         if (chatButton && (
           chatButton.getAttribute('aria-label')?.includes('chat') ||
           chatButton.title?.includes('chat') ||
           chatButton.classList.contains('chat-button') ||
-          getComputedStyle(chatButton).position === 'fixed'
+          getComputedStyle(chatButton).position === 'fixed' ||
+          chatButton.style.position === 'fixed'
         )) {
           chatClicked = true;
-          initialLoadComplete = true;
+          preventAutoOpen = false;
+          clearInterval(autoOpenInterval);
+        }
+      });
+      
+      // Also listen for clicks directly on the chat widget area
+      document.addEventListener('click', (e) => {
+        const rect = e.target.getBoundingClientRect();
+        // Check if click is in bottom-right area where chat widget typically appears
+        if (rect.right > window.innerWidth - 100 && rect.bottom > window.innerHeight - 100) {
+          chatClicked = true;
+          preventAutoOpen = false;
+          clearInterval(autoOpenInterval);
         }
       });
     </script>
