@@ -18,6 +18,20 @@
     <!-- No external font-awesome needed as we're using Unicode symbols -->
     <!-- Chatbot Widget -->
     <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
+    <script>
+      // Override chatbot auto-open delay to 1 minute
+      window.addEventListener('load', function() {
+        // Wait for the chatbot to initialize, then override its auto-open behavior
+        setTimeout(function() {
+          // Check if the chatbot has a method to control auto-open timing
+          if (window.chatbot && typeof window.chatbot.setAutoOpenDelay === 'function') {
+            window.chatbot.setAutoOpenDelay(60000); // 60 seconds
+          } else if (window.ChatWidget && typeof window.ChatWidget.setAutoOpenDelay === 'function') {
+            window.ChatWidget.setAutoOpenDelay(60000);
+          }
+        }, 100);
+      });
+    </script>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
