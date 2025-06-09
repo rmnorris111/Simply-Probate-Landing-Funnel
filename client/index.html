@@ -17,84 +17,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- No external font-awesome needed as we're using Unicode symbols -->
     <!-- Chatbot Widget -->
-    <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
-    <script>
-      // Force close chatbot if it auto-opens
-      function closeChatbot() {
-        try {
-          // Look for close buttons with various selectors
-          const closeButton = document.querySelector('button[aria-label="Close chat"]') ||
-                             document.querySelector('button[title="Close"]') ||
-                             document.querySelector('.chat-close-button') ||
-                             document.querySelector('svg[data-icon="close"]')?.closest('button');
-          
-          // Also check for buttons containing X or close symbols
-          if (!closeButton) {
-            const buttons = Array.from(document.querySelectorAll('button'));
-            const xButton = buttons.find(btn => 
-              btn.textContent.includes('×') || 
-              btn.textContent.includes('✕') ||
-              btn.innerHTML.includes('&times;') ||
-              btn.innerHTML.includes('close')
-            );
-            if (xButton) {
-              xButton.click();
-              return true;
-            }
-          }
-          
-          if (closeButton) {
-            closeButton.click();
-            return true;
-          }
-          
-          // Find any modal-like elements and hide them
-          const modals = document.querySelectorAll('[role="dialog"], .modal, .popup');
-          modals.forEach(modal => {
-            if (modal.style.display !== 'none') {
-              modal.style.display = 'none';
-            }
-          });
-          
-          // Hide any fixed position elements that might be the chat
-          const fixedElements = Array.from(document.querySelectorAll('*')).filter(el => {
-            const style = window.getComputedStyle(el);
-            return style.position === 'fixed' && parseInt(style.zIndex) > 1000;
-          });
-          
-          fixedElements.forEach(el => {
-            // Only hide if it's likely a chat widget (has text content suggesting it's a chat)
-            if (el.textContent && (el.textContent.includes('chat') || el.textContent.includes('help') || el.textContent.includes('assist'))) {
-              el.style.display = 'none';
-            }
-          });
-          
-        } catch (error) {
-          console.log('Error closing chatbot:', error);
-        }
-        return false;
+    <style>
+      /* Hide chat popup but keep the chat icon visible */
+      .chat-popup,
+      .chat-modal,
+      .chat-window,
+      .widget-popup,
+      [role="dialog"][data-chat],
+      div[style*="position: fixed"][style*="z-index"]:has(button[aria-label*="close"]),
+      div[style*="position: fixed"]:has(form):has(input[placeholder*="chat"]),
+      div[style*="position: fixed"]:has(div:contains("Hi! I'm here to help")) {
+        display: none !important;
       }
       
-      // Try to close chatbot at different intervals
-      setTimeout(closeChatbot, 100);
-      setTimeout(closeChatbot, 500);
-      setTimeout(closeChatbot, 1000);
-      setTimeout(closeChatbot, 2000);
-      
-      // Set up observer when DOM is ready
-      document.addEventListener('DOMContentLoaded', function() {
-        const observer = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            if (mutation.addedNodes.length > 0) {
-              setTimeout(closeChatbot, 50);
-            }
-          });
-        });
+      /* Keep the chat button/icon visible */
+      .chat-button,
+      .chat-icon,
+      .widget-button,
+      button[aria-label*="chat"],
+      button[title*="chat"],
+      div[style*="position: fixed"][style*="border-radius"]:not(:has(form)):not(:has(input)) {
+        display: block !important;
+      }
+    </style>
+    <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
+    <script>
+      // Continuously monitor and hide chat popup while keeping icon
+      function hideChatPopup() {
+        const elementsToHide = document.querySelectorAll(`
+          [role="dialog"],
+          .modal,
+          .popup,
+          div[style*="position: fixed"][style*="z-index"]
+        `);
         
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true
+        elementsToHide.forEach(el => {
+          // Check if element contains chat-like content (form, input, welcome message)
+          const hasForm = el.querySelector('form, input, textarea');
+          const hasWelcome = el.textContent && el.textContent.includes('Hi!');
+          const hasChat = el.textContent && (el.textContent.includes('chat') || el.textContent.includes('help'));
+          
+          if (hasForm || hasWelcome || hasChat) {
+            el.style.display = 'none';
+          }
         });
+      }
+      
+      // Run continuously
+      setInterval(hideChatPopup, 100);
+      
+      // Also run on DOM changes
+      const observer = new MutationObserver(hideChatPopup);
+      document.addEventListener('DOMContentLoaded', () => {
+        observer.observe(document.body, { childList: true, subtree: true });
       });
     </script>
   </head>
