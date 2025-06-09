@@ -18,6 +18,17 @@
     <!-- No external font-awesome needed as we're using Unicode symbols -->
     <!-- Chatbot Widget -->
     <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
+    <script>
+      // Configure chatbot to not auto-open
+      window.addEventListener('load', function() {
+        if (window.chatWidget) {
+          window.chatWidget.config = {
+            autoOpen: false,
+            showWelcomeMessage: false
+          };
+        }
+      });
+    </script>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
