@@ -21,58 +21,80 @@
     <script>
       // Force close chatbot if it auto-opens
       function closeChatbot() {
-        // Look for the X close button specifically
-        const closeButton = document.querySelector('button[aria-label="Close chat"]') ||
-                           document.querySelector('button[title="Close"]') ||
-                           document.querySelector('.chat-close-button') ||
-                           document.querySelector('button:contains("×")') ||
-                           document.querySelector('svg[data-icon="close"]')?.closest('button') ||
-                           Array.from(document.querySelectorAll('button')).find(btn => 
-                             btn.textContent.includes('×') || 
-                             btn.textContent.includes('✕') ||
-                             btn.innerHTML.includes('&times;')
-                           );
-        
-        if (closeButton) {
-          closeButton.click();
-          return true;
+        try {
+          // Look for close buttons with various selectors
+          const closeButton = document.querySelector('button[aria-label="Close chat"]') ||
+                             document.querySelector('button[title="Close"]') ||
+                             document.querySelector('.chat-close-button') ||
+                             document.querySelector('svg[data-icon="close"]')?.closest('button');
+          
+          // Also check for buttons containing X or close symbols
+          if (!closeButton) {
+            const buttons = Array.from(document.querySelectorAll('button'));
+            const xButton = buttons.find(btn => 
+              btn.textContent.includes('×') || 
+              btn.textContent.includes('✕') ||
+              btn.innerHTML.includes('&times;') ||
+              btn.innerHTML.includes('close')
+            );
+            if (xButton) {
+              xButton.click();
+              return true;
+            }
+          }
+          
+          if (closeButton) {
+            closeButton.click();
+            return true;
+          }
+          
+          // Find any modal-like elements and hide them
+          const modals = document.querySelectorAll('[role="dialog"], .modal, .popup');
+          modals.forEach(modal => {
+            if (modal.style.display !== 'none') {
+              modal.style.display = 'none';
+            }
+          });
+          
+          // Hide any fixed position elements that might be the chat
+          const fixedElements = Array.from(document.querySelectorAll('*')).filter(el => {
+            const style = window.getComputedStyle(el);
+            return style.position === 'fixed' && parseInt(style.zIndex) > 1000;
+          });
+          
+          fixedElements.forEach(el => {
+            // Only hide if it's likely a chat widget (has text content suggesting it's a chat)
+            if (el.textContent && (el.textContent.includes('chat') || el.textContent.includes('help') || el.textContent.includes('assist'))) {
+              el.style.display = 'none';
+            }
+          });
+          
+        } catch (error) {
+          console.log('Error closing chatbot:', error);
         }
-        
-        // If we can't find close button, hide the chat popup entirely
-        const chatPopup = document.querySelector('.chat-popup') ||
-                         document.querySelector('.chat-modal') ||
-                         document.querySelector('[role="dialog"]') ||
-                         document.querySelector('.widget-container') ||
-                         Array.from(document.querySelectorAll('div')).find(div => 
-                           div.style.position === 'fixed' && 
-                           div.style.zIndex > 1000
-                         );
-        
-        if (chatPopup && chatPopup.style.display !== 'none') {
-          chatPopup.style.display = 'none';
-          return true;
-        }
-        
         return false;
       }
       
-      // Try multiple times to close the chatbot
+      // Try to close chatbot at different intervals
+      setTimeout(closeChatbot, 100);
       setTimeout(closeChatbot, 500);
       setTimeout(closeChatbot, 1000);
       setTimeout(closeChatbot, 2000);
       
-      // Watch for new elements being added (in case chat reopens)
-      const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          if (mutation.addedNodes.length > 0) {
-            setTimeout(closeChatbot, 100);
-          }
+      // Set up observer when DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length > 0) {
+              setTimeout(closeChatbot, 50);
+            }
+          });
         });
-      });
-      
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
       });
     </script>
   </head>
