@@ -24,12 +24,27 @@
       
       function handleChatAutoOpen() {
         if (preventAutoOpen && !chatClicked) {
-          const chatElements = document.querySelectorAll('[role="dialog"], .modal, .popup, div[style*="position: fixed"]');
+          // Only look for chat popup/modal elements, not the button itself
+          const chatElements = document.querySelectorAll('[role="dialog"], .modal, .popup');
           chatElements.forEach(el => {
-            // Check if it's a chat element by looking for chat-like content
+            // Only hide if it contains chat conversation content
             if (el.textContent && (
               el.textContent.includes('Hi!') || 
-              el.textContent.includes('help') ||
+              el.textContent.includes('How can I help') ||
+              el.textContent.includes('Welcome') ||
+              el.querySelector('form, input[type="text"], textarea')
+            )) {
+              el.style.display = 'none';
+            }
+          });
+          
+          // Also check for large fixed positioned elements that might be chat windows
+          const fixedElements = document.querySelectorAll('div[style*="position: fixed"]');
+          fixedElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            // Only hide if it's a large element (likely a chat window, not a button)
+            if (rect.width > 200 && rect.height > 200 && el.textContent && (
+              el.textContent.includes('Hi!') || 
               el.textContent.includes('How can I help') ||
               el.querySelector('form, input, textarea')
             )) {
@@ -40,31 +55,18 @@
       }
       
       // Prevent auto-open indefinitely until user clicks
-      const autoOpenInterval = setInterval(handleChatAutoOpen, 50);
+      const autoOpenInterval = setInterval(handleChatAutoOpen, 100);
       
-      // Listen for clicks on chat button
+      // Listen for clicks on chat button/icon
       document.addEventListener('click', (e) => {
         const target = e.target;
-        const chatButton = target.closest('button, div[role="button"], div[style*="position: fixed"]');
+        const clickedElement = target.closest('button, div[role="button"]') || target;
         
-        if (chatButton && (
-          chatButton.getAttribute('aria-label')?.includes('chat') ||
-          chatButton.title?.includes('chat') ||
-          chatButton.classList.contains('chat-button') ||
-          getComputedStyle(chatButton).position === 'fixed' ||
-          chatButton.style.position === 'fixed'
-        )) {
-          chatClicked = true;
-          preventAutoOpen = false;
-          clearInterval(autoOpenInterval);
-        }
-      });
-      
-      // Also listen for clicks directly on the chat widget area
-      document.addEventListener('click', (e) => {
-        const rect = e.target.getBoundingClientRect();
-        // Check if click is in bottom-right area where chat widget typically appears
-        if (rect.right > window.innerWidth - 100 && rect.bottom > window.innerHeight - 100) {
+        // Check if clicked element is likely the chat button
+        const isInBottomRight = e.clientX > window.innerWidth - 150 && e.clientY > window.innerHeight - 150;
+        const hasFixedPosition = getComputedStyle(clickedElement).position === 'fixed';
+        
+        if (isInBottomRight || hasFixedPosition) {
           chatClicked = true;
           preventAutoOpen = false;
           clearInterval(autoOpenInterval);
