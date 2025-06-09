@@ -19,15 +19,29 @@
     <!-- Chatbot Widget -->
     <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
     <script>
-      // Configure chatbot to not auto-open
-      window.addEventListener('load', function() {
-        if (window.chatWidget) {
-          window.chatWidget.config = {
-            autoOpen: false,
-            showWelcomeMessage: false
-          };
+      // Force close chatbot if it auto-opens
+      setTimeout(function() {
+        const chatWidget = document.querySelector('[data-chat-widget]') || 
+                          document.querySelector('.chat-widget') ||
+                          document.querySelector('#chat-widget') ||
+                          document.querySelector('.chatbot-widget');
+        
+        if (chatWidget) {
+          const closeButton = chatWidget.querySelector('button[data-close]') ||
+                             chatWidget.querySelector('.close-button') ||
+                             chatWidget.querySelector('[aria-label*="close"]') ||
+                             chatWidget.querySelector('button:last-child');
+          
+          if (closeButton) {
+            closeButton.click();
+          }
         }
-      });
+        
+        // Try to access global chatbot functions
+        if (window.closeChat) window.closeChat();
+        if (window.chatWidget && window.chatWidget.close) window.chatWidget.close();
+        if (window.widget && window.widget.close) window.widget.close();
+      }, 1000);
     </script>
   </head>
   <body>
