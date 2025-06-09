@@ -20,28 +20,60 @@
     <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
     <script>
       // Force close chatbot if it auto-opens
-      setTimeout(function() {
-        const chatWidget = document.querySelector('[data-chat-widget]') || 
-                          document.querySelector('.chat-widget') ||
-                          document.querySelector('#chat-widget') ||
-                          document.querySelector('.chatbot-widget');
+      function closeChatbot() {
+        // Look for the X close button specifically
+        const closeButton = document.querySelector('button[aria-label="Close chat"]') ||
+                           document.querySelector('button[title="Close"]') ||
+                           document.querySelector('.chat-close-button') ||
+                           document.querySelector('button:contains("×")') ||
+                           document.querySelector('svg[data-icon="close"]')?.closest('button') ||
+                           Array.from(document.querySelectorAll('button')).find(btn => 
+                             btn.textContent.includes('×') || 
+                             btn.textContent.includes('✕') ||
+                             btn.innerHTML.includes('&times;')
+                           );
         
-        if (chatWidget) {
-          const closeButton = chatWidget.querySelector('button[data-close]') ||
-                             chatWidget.querySelector('.close-button') ||
-                             chatWidget.querySelector('[aria-label*="close"]') ||
-                             chatWidget.querySelector('button:last-child');
-          
-          if (closeButton) {
-            closeButton.click();
-          }
+        if (closeButton) {
+          closeButton.click();
+          return true;
         }
         
-        // Try to access global chatbot functions
-        if (window.closeChat) window.closeChat();
-        if (window.chatWidget && window.chatWidget.close) window.chatWidget.close();
-        if (window.widget && window.widget.close) window.widget.close();
-      }, 1000);
+        // If we can't find close button, hide the chat popup entirely
+        const chatPopup = document.querySelector('.chat-popup') ||
+                         document.querySelector('.chat-modal') ||
+                         document.querySelector('[role="dialog"]') ||
+                         document.querySelector('.widget-container') ||
+                         Array.from(document.querySelectorAll('div')).find(div => 
+                           div.style.position === 'fixed' && 
+                           div.style.zIndex > 1000
+                         );
+        
+        if (chatPopup && chatPopup.style.display !== 'none') {
+          chatPopup.style.display = 'none';
+          return true;
+        }
+        
+        return false;
+      }
+      
+      // Try multiple times to close the chatbot
+      setTimeout(closeChatbot, 500);
+      setTimeout(closeChatbot, 1000);
+      setTimeout(closeChatbot, 2000);
+      
+      // Watch for new elements being added (in case chat reopens)
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.addedNodes.length > 0) {
+            setTimeout(closeChatbot, 100);
+          }
+        });
+      });
+      
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
     </script>
   </head>
   <body>
