@@ -17,59 +17,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- No external font-awesome needed as we're using Unicode symbols -->
     <!-- Chatbot Widget -->
-    <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
-    <script>
-      let chatClicked = false;
-      let preventAutoOpen = true;
-      
-      function handleChatAutoOpen() {
-        if (preventAutoOpen && !chatClicked) {
-          // Only look for chat popup/modal elements, not the button itself
-          const chatElements = document.querySelectorAll('[role="dialog"], .modal, .popup');
-          chatElements.forEach(el => {
-            // Only hide if it contains chat conversation content
-            if (el.textContent && (
-              el.textContent.includes('Hi!') || 
-              el.textContent.includes('How can I help') ||
-              el.textContent.includes('Welcome') ||
-              el.querySelector('form, input[type="text"], textarea')
-            )) {
-              el.style.display = 'none';
-            }
-          });
-          
-          // Also check for large fixed positioned elements that might be chat windows
-          const fixedElements = document.querySelectorAll('div[style*="position: fixed"]');
-          fixedElements.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            // Only hide if it's a large element (likely a chat window, not a button)
-            if (rect.width > 200 && rect.height > 200 && el.textContent && (
-              el.textContent.includes('Hi!') || 
-              el.textContent.includes('How can I help') ||
-              el.querySelector('form, input, textarea')
-            )) {
-              el.style.display = 'none';
-            }
-          });
-        }
+    <style>
+      /* Hide chat windows that auto-open, but preserve the chat button */
+      [role="dialog"]:has(form),
+      [role="dialog"]:has(input),
+      [role="dialog"]:has(textarea),
+      .modal:has(form),
+      .popup:has(form) {
+        display: none !important;
       }
       
-      // Prevent auto-open indefinitely until user clicks
-      const autoOpenInterval = setInterval(handleChatAutoOpen, 100);
+      /* Preserve chat button visibility */
+      button[style*="position: fixed"],
+      div[role="button"][style*="position: fixed"],
+      *[style*="position: fixed"][style*="border-radius"]:not([role="dialog"]) {
+        display: block !important;
+      }
+    </style>
+    <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
+    <script>
+      let userHasInteracted = false;
       
-      // Listen for clicks on chat button/icon
+      // Simple click detector for chat area
       document.addEventListener('click', (e) => {
-        const target = e.target;
-        const clickedElement = target.closest('button, div[role="button"]') || target;
-        
-        // Check if clicked element is likely the chat button
-        const isInBottomRight = e.clientX > window.innerWidth - 150 && e.clientY > window.innerHeight - 150;
-        const hasFixedPosition = getComputedStyle(clickedElement).position === 'fixed';
-        
-        if (isInBottomRight || hasFixedPosition) {
-          chatClicked = true;
-          preventAutoOpen = false;
-          clearInterval(autoOpenInterval);
+        if (e.clientX > window.innerWidth - 100 && e.clientY > window.innerHeight - 100) {
+          userHasInteracted = true;
+          // Remove the CSS hiding rules when user clicks
+          const style = document.createElement('style');
+          style.textContent = `
+            [role="dialog"], .modal, .popup {
+              display: block !important;
+            }
+          `;
+          document.head.appendChild(style);
         }
       });
     </script>
