@@ -17,59 +17,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- No external font-awesome needed as we're using Unicode symbols -->
     <!-- Chatbot Widget -->
-    <style>
-      /* Hide chat popup but keep the chat icon visible */
-      .chat-popup,
-      .chat-modal,
-      .chat-window,
-      .widget-popup,
-      [role="dialog"][data-chat],
-      div[style*="position: fixed"][style*="z-index"]:has(button[aria-label*="close"]),
-      div[style*="position: fixed"]:has(form):has(input[placeholder*="chat"]),
-      div[style*="position: fixed"]:has(div:contains("Hi! I'm here to help")) {
-        display: none !important;
-      }
-      
-      /* Keep the chat button/icon visible */
-      .chat-button,
-      .chat-icon,
-      .widget-button,
-      button[aria-label*="chat"],
-      button[title*="chat"],
-      div[style*="position: fixed"][style*="border-radius"]:not(:has(form)):not(:has(input)) {
-        display: block !important;
-      }
-    </style>
     <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
     <script>
-      // Continuously monitor and hide chat popup while keeping icon
-      function hideChatPopup() {
-        const elementsToHide = document.querySelectorAll(`
-          [role="dialog"],
-          .modal,
-          .popup,
-          div[style*="position: fixed"][style*="z-index"]
-        `);
-        
-        elementsToHide.forEach(el => {
-          // Check if element contains chat-like content (form, input, welcome message)
-          const hasForm = el.querySelector('form, input, textarea');
-          const hasWelcome = el.textContent && el.textContent.includes('Hi!');
-          const hasChat = el.textContent && (el.textContent.includes('chat') || el.textContent.includes('help'));
-          
-          if (hasForm || hasWelcome || hasChat) {
-            el.style.display = 'none';
-          }
-        });
+      let chatClicked = false;
+      let initialLoadComplete = false;
+      
+      function handleChatAutoOpen() {
+        // Only hide auto-open during initial page load
+        if (!initialLoadComplete && !chatClicked) {
+          const chatElements = document.querySelectorAll('[role="dialog"], .modal, .popup');
+          chatElements.forEach(el => {
+            if (el.textContent && (el.textContent.includes('Hi!') || el.textContent.includes('help'))) {
+              el.style.display = 'none';
+            }
+          });
+        }
       }
       
-      // Run continuously
-      setInterval(hideChatPopup, 100);
+      // Hide auto-open for first 3 seconds after page load
+      setTimeout(() => {
+        initialLoadComplete = true;
+      }, 3000);
       
-      // Also run on DOM changes
-      const observer = new MutationObserver(hideChatPopup);
-      document.addEventListener('DOMContentLoaded', () => {
-        observer.observe(document.body, { childList: true, subtree: true });
+      // Monitor for auto-open during initial load
+      const autoOpenInterval = setInterval(() => {
+        if (initialLoadComplete) {
+          clearInterval(autoOpenInterval);
+          return;
+        }
+        handleChatAutoOpen();
+      }, 100);
+      
+      // Listen for clicks on chat button to allow manual opening
+      document.addEventListener('click', (e) => {
+        const chatButton = e.target.closest('button, div[role="button"]');
+        if (chatButton && (
+          chatButton.getAttribute('aria-label')?.includes('chat') ||
+          chatButton.title?.includes('chat') ||
+          chatButton.classList.contains('chat-button') ||
+          getComputedStyle(chatButton).position === 'fixed'
+        )) {
+          chatClicked = true;
+          initialLoadComplete = true;
+        }
       });
     </script>
   </head>
