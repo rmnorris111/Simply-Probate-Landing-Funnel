@@ -17,42 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- No external font-awesome needed as we're using Unicode symbols -->
     <!-- Chatbot Widget -->
-    <style>
-      /* Hide chat windows that auto-open, but preserve the chat button */
-      [role="dialog"]:has(form),
-      [role="dialog"]:has(input),
-      [role="dialog"]:has(textarea),
-      .modal:has(form),
-      .popup:has(form) {
-        display: none !important;
-      }
-      
-      /* Preserve chat button visibility */
-      button[style*="position: fixed"],
-      div[role="button"][style*="position: fixed"],
-      *[style*="position: fixed"][style*="border-radius"]:not([role="dialog"]) {
-        display: block !important;
-      }
-    </style>
     <script src="https://lingering-fog-5cf3.rion-norris.workers.dev/widget"></script>
-    <script>
-      let userHasInteracted = false;
-      
-      // Simple click detector for chat area
-      document.addEventListener('click', (e) => {
-        if (e.clientX > window.innerWidth - 100 && e.clientY > window.innerHeight - 100) {
-          userHasInteracted = true;
-          // Remove the CSS hiding rules when user clicks
-          const style = document.createElement('style');
-          style.textContent = `
-            [role="dialog"], .modal, .popup {
-              display: block !important;
-            }
-          `;
-          document.head.appendChild(style);
-        }
-      });
-    </script>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
