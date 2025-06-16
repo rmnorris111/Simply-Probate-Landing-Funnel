@@ -139,12 +139,14 @@ const Pricing: React.FC = () => {
                 </li>
               </ul>
               
-              <button 
-                onClick={() => trackConversion("https://thedisputelawyer.gavel.io/start/playground2/Application%20for%20Letters%20of%20Administration%20On%20Intestacy")}
-                className="w-full py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
+              <a 
+                href="https://thedisputelawyer.gavel.io/start/playground2/Application%20for%20Letters%20of%20Administration%20On%20Intestacy"
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
               >
                 Start Application Online Now
-              </button>
+              </a>
             </div>
           </div>
         </div>
