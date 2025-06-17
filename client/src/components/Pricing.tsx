@@ -22,6 +22,20 @@ const Pricing: React.FC = () => {
     }, 300);
   };
 
+  const startIntestacyApplication = () => {
+    // Push custom event to dataLayer
+    if (typeof window !== 'undefined' && window.dataLayer) {
+      window.dataLayer.push({
+        'event': 'intestacy_application_started'
+      });
+    }
+    
+    // Small delay then redirect
+    setTimeout(() => {
+      window.open('https://thedisputelawyer.gavel.io/start/playground2/Application%20for%20Letters%20of%20Administration%20On%20Intestacy', '_blank');
+    }, 300);
+  };
+
 
 
   return (
@@ -147,14 +161,12 @@ const Pricing: React.FC = () => {
                 </li>
               </ul>
               
-              <a 
-                href="https://thedisputelawyer.gavel.io/start/playground2/Application%20for%20Letters%20of%20Administration%20On%20Intestacy"
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
+              <button 
+                onClick={startIntestacyApplication}
+                className="w-full py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
               >
                 Start Application Online Now
-              </a>
+              </button>
             </div>
           </div>
         </div>
