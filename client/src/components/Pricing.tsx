@@ -1,20 +1,5 @@
 import React from 'react';
 
-// Google Ads conversion tracking function
-const trackConversion = (url: string) => {
-  // Track the conversion event
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', 'conversion', {
-      'send_to': 'AW-10968829596/u1d2CIy_stwaEJydrO4o'
-    });
-  }
-  
-  // Small delay to ensure tracking fires before redirect
-  setTimeout(() => {
-    window.open(url, '_blank');
-  }, 300);
-};
-
 const Pricing: React.FC = () => {
   return (
     <section id="pricing" className="py-16 bg-gray-50">
@@ -76,12 +61,14 @@ const Pricing: React.FC = () => {
                 </li>
               </ul>
               
-              <button 
-                onClick={() => trackConversion("https://thedisputelawyer.gavel.io/start/playground2/Simply%20Probate%20application%20for%20probate")}
-                className="w-full py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
+              <a 
+                href="https://thedisputelawyer.gavel.io/start/playground2/Simply%20Probate%20application%20for%20probate"
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full block py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
               >
                 Start Application Online Now
-              </button>
+              </a>
             </div>
           </div>
           
