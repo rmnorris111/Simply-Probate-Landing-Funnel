@@ -307,7 +307,7 @@ const CostCalculator: React.FC = () => {
                   Start Application Online
                 </button>
                 <a 
-                  href="https://calendly.com/rionnorris/15min" 
+                  href="https://calendly.com/rionnorris/15min?hide_event_type_details=1&hide_gdpr_banner=1&background_color=f5f7fa&text_color=333333&primary_color=2563eb&success_redirect_url=https://quiz.simplyprobate.co.nz/thank-you" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="border border-[#2EBFAF] text-[#2EBFAF] py-3 px-6 rounded-md font-semibold hover:bg-[#2EBFAF] hover:text-white transition-colors"
