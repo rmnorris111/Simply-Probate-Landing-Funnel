@@ -9,6 +9,13 @@ const Hero: React.FC = () => {
     }
   };
 
+  const scrollToCalculator = () => {
+    const calculatorElement = document.querySelector('[data-calculator]');
+    if (calculatorElement) {
+      calculatorElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="bg-primary text-white py-12 md:py-20">
       <div className="container mx-auto px-4">
@@ -21,12 +28,20 @@ const Hero: React.FC = () => {
             <p className="text-lg md:text-xl mb-6">
               Expert guidance to navigate the probate process with ease and confidence.
             </p>
-            <button 
-              onClick={scrollToQuiz}
-              className="inline-block bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
-            >
-              Start Free Assessment
-            </button>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button 
+                onClick={scrollToQuiz}
+                className="bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
+              >
+                Start Free Assessment
+              </button>
+              <button 
+                onClick={scrollToCalculator}
+                className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all font-bold py-3 px-6 rounded-md text-center"
+              >
+                Calculate Costs
+              </button>
+            </div>
           </div>
 
           {/* Text content for mobile - shown on mobile, hidden on desktop */}
@@ -46,14 +61,22 @@ const Hero: React.FC = () => {
             </div>
           </div>
           
-          {/* Button for mobile - shown on mobile, hidden on desktop */}
+          {/* Buttons for mobile - shown on mobile, hidden on desktop */}
           <div className="md:hidden mt-6 text-center">
-            <button 
-              onClick={scrollToQuiz}
-              className="inline-block bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
-            >
-              Start Free Assessment
-            </button>
+            <div className="flex flex-col gap-3">
+              <button 
+                onClick={scrollToQuiz}
+                className="bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
+              >
+                Start Free Assessment
+              </button>
+              <button 
+                onClick={scrollToCalculator}
+                className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all font-bold py-3 px-6 rounded-md text-center"
+              >
+                Calculate Costs
+              </button>
+            </div>
           </div>
         </div>
       </div>
