@@ -140,7 +140,7 @@ const CostCalculator: React.FC = () => {
 
           <button
             onClick={calculateCosts}
-            className="mt-6 w-full bg-secondary text-white py-3 px-6 rounded-md font-semibold hover:bg-secondary/90 transition-colors"
+            className="mt-6 w-full bg-secondary text-white py-3 px-6 rounded-md font-semibold hover:bg-opacity-90 transition-colors"
           >
             Get Cost Estimates
           </button>
@@ -303,7 +303,7 @@ const CostCalculator: React.FC = () => {
                       window.open('https://thedisputelawyer.gavel.io/run/playground2/Simply%20Probate%20application%20for%20probate/#/1', '_blank');
                     }, 300);
                   }}
-                  className="bg-secondary text-white py-3 px-6 rounded-md font-semibold hover:bg-secondary/90 transition-colors"
+                  className="bg-secondary text-white py-3 px-6 rounded-md font-semibold hover:bg-opacity-90 transition-colors"
                 >
                   Start Application Online
                 </button>
