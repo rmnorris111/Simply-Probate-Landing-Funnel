@@ -100,7 +100,7 @@ const Pricing: React.FC = () => {
               
               <button 
                 onClick={startApplication}
-                className="w-full py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
+                className="w-full py-3 text-center bg-[#052d49] text-white rounded-md font-medium hover:bg-[#041f35] hover:text-white transition-all"
               >
                 Start Application Online Now
               </button>
@@ -163,7 +163,7 @@ const Pricing: React.FC = () => {
               
               <button 
                 onClick={startIntestacyApplication}
-                className="w-full py-3 text-center bg-primary text-white rounded-md font-medium hover:bg-primary/90 hover:text-white transition-all"
+                className="w-full py-3 text-center bg-[#052d49] text-white rounded-md font-medium hover:bg-[#041f35] hover:text-white transition-all"
               >
                 Start Application Online Now
               </button>
