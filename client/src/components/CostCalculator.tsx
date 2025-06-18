@@ -295,8 +295,7 @@ const CostCalculator: React.FC = () => {
                   onClick={() => {
                     if (typeof window !== 'undefined' && window.dataLayer) {
                       window.dataLayer.push({
-                        'event': 'application_started',
-                        'source': 'cost_calculator'
+                        'event': 'application_started'
                       });
                     }
                     setTimeout(() => {
