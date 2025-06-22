@@ -10,7 +10,7 @@ const VideoPlayer: React.FC = () => {
   };
   
   return (
-    <div className="relative rounded-lg overflow-hidden bg-transparent flex items-center justify-center">
+    <div className="relative rounded-lg overflow-hidden bg-white flex items-center justify-center p-8">
       <div className="cursor-pointer transition-transform hover:scale-105" onClick={scrollToDownload}>
         <img 
           src={pdfImage} 
