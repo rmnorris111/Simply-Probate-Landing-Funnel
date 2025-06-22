@@ -2,7 +2,7 @@
 
 ## Overview
 
-Simply Probate is a full-stack web application designed to provide professional probate services in New Zealand. The application features a landing page with an integrated quiz system to assess potential clients' needs, combined with pricing information and lead generation capabilities. The application is built using React for the frontend and Express.js for the backend, with plans for database integration using Drizzle ORM and PostgreSQL.
+Simply Probate is a full-stack web application designed as a squeeze page for PDF download lead generation. The application features a landing page with a PDF download form to capture leads, combined with pricing information and service details. The application is built using React for the frontend and Express.js for the backend, with plans for database integration using Drizzle ORM and PostgreSQL.
 
 ## System Architecture
 
