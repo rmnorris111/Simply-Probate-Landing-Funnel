@@ -36,16 +36,15 @@ Simply Probate is a full-stack web application designed as a squeeze page for PD
    - Benefits showcase with icon-based feature highlights
    - Customer testimonials with carousel functionality
    - Pricing section with direct application links
-   - Interactive quiz system for lead qualification
+   - PDF download form for lead generation
    - Call-to-action sections throughout
    - Footer with contact information
 
-2. **Quiz System**:
-   - Multi-step form with progress tracking
-   - Qualification scoring algorithm
-   - Lead capture with form validation
-   - Results-based routing (qualified vs unqualified leads)
-   - Integration with external booking systems
+2. **PDF Download System**:
+   - Lead capture form with email validation
+   - PDF download functionality
+   - Toast notifications for user feedback
+   - Form submission handling with loading states
 
 3. **UI Components**:
    - Comprehensive design system using shadcn/ui components
@@ -71,13 +70,14 @@ Simply Probate is a full-stack web application designed as a squeeze page for PD
 
 ## Data Flow
 
-### Quiz Flow
-1. User completes multi-step assessment quiz
-2. Responses are scored using qualification algorithm
-3. Based on score, user is either:
-   - Redirected to external booking system (qualified)
-   - Shown alternative contact information (unqualified)
-4. Contact information is captured for follow-up
+### PDF Download Flow
+1. User fills out lead capture form with name and email
+2. Form validation ensures required fields are completed
+3. Upon successful submission:
+   - User receives confirmation toast notification
+   - PDF guide is delivered to their email
+   - Form resets for additional submissions
+4. Contact information is captured for follow-up marketing
 
 ### Content Delivery
 1. Static assets served via Vite in development
@@ -130,6 +130,7 @@ Simply Probate is a full-stack web application designed as a squeeze page for PD
 - Database: DATABASE_URL for PostgreSQL connection (when implemented)
 
 ## Changelog
+- June 22, 2025. Migrated from Replit Agent to Replit environment - removed quiz and chatbot functionality, added PDF download squeeze page
 - June 18, 2025. Initial setup
 
 ## User Preferences
