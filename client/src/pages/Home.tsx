@@ -5,7 +5,7 @@ import Benefits from '@/components/Benefits';
 import CostCalculator from '@/components/CostCalculator';
 import Testimonials from '@/components/Testimonials';
 import Pricing from '@/components/Pricing';
-import Quiz from '@/components/Quiz';
+
 import CallToAction from '@/components/CallToAction';
 import Footer from '@/components/Footer';
 
@@ -19,7 +19,7 @@ const Home: React.FC = () => {
         <CostCalculator />
         <Testimonials />
         <Pricing />
-        <Quiz />
+
         <CallToAction />
       </main>
       <Footer />

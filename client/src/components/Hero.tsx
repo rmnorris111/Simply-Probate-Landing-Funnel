@@ -2,10 +2,10 @@ import React from 'react';
 import VideoPlayer from '@/components/ui/video-player';
 
 const Hero: React.FC = () => {
-  const scrollToQuiz = () => {
-    const quizElement = document.getElementById('quiz');
-    if (quizElement) {
-      quizElement.scrollIntoView({ behavior: 'smooth' });
+  const scrollToDownload = () => {
+    const downloadElement = document.getElementById('download');
+    if (downloadElement) {
+      downloadElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -30,10 +30,10 @@ const Hero: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <button 
-                onClick={scrollToQuiz}
+                onClick={scrollToDownload}
                 className="bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
               >
-                Start Free Assessment
+                Download Free PDF
               </button>
               <button 
                 onClick={scrollToCalculator}
@@ -65,10 +65,10 @@ const Hero: React.FC = () => {
           <div className="md:hidden mt-6 text-center">
             <div className="flex flex-col gap-3">
               <button 
-                onClick={scrollToQuiz}
+                onClick={scrollToDownload}
                 className="bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
               >
-                Start Free Assessment
+                Download Free PDF
               </button>
               <button 
                 onClick={scrollToCalculator}
