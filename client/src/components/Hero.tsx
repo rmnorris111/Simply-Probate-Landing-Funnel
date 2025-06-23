@@ -52,10 +52,10 @@ const Hero: React.FC = () => {
           {/* Text content for mobile - shown on mobile, hidden on desktop */}
           <div className="md:hidden mb-8">
             <h2 className="text-3xl font-heading font-bold mb-4">
-              Professional Probate Services in New Zealand
+              The Helpful Guide to Probate in NZ (That Actually Makes Sense)
             </h2>
             <p className="text-lg mb-6">
-              Expert guidance to navigate the probate process with ease and confidence.
+              Download our FREE 20-page guide and learn exactly what to do, when to do it, and how much it costs - written for real people, not lawyers.
             </p>
           </div>
           
