@@ -2,10 +2,7 @@ import React from 'react';
 
 const CallToAction: React.FC = () => {
   const scrollToDownload = () => {
-    const downloadElement = document.getElementById('download');
-    if (downloadElement) {
-      downloadElement.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSeyK4FzJQsJZcjCfE6Koi_zEJx2T60v04IIaTIg2NsCKtNi9w/viewform?usp=header', '_blank');
   };
 
   return (

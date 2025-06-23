@@ -2,9 +2,7 @@ import React from 'react';
 
 const PdfDownload: React.FC = () => {
   const handleDownload = () => {
-    // This will redirect to your external form/landing page where users can enter their details
-    // You can replace this URL with your actual form URL
-    window.open('https://your-form-url.com', '_blank');
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSeyK4FzJQsJZcjCfE6Koi_zEJx2T60v04IIaTIg2NsCKtNi9w/viewform?usp=header', '_blank');
   };
 
   return (
