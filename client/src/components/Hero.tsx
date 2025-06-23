@@ -9,12 +9,7 @@ const Hero: React.FC = () => {
     }
   };
 
-  const scrollToCalculator = () => {
-    const calculatorElement = document.querySelector('[data-calculator]');
-    if (calculatorElement) {
-      calculatorElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  
 
   return (
     <section className="bg-primary text-white py-12 md:py-20">
@@ -22,9 +17,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-center">
           {/* Text content - hidden on mobile, shown on desktop */}
           <div className="hidden md:block md:w-1/2 md:mb-0 md:pr-8">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4">
-              Professional Probate Services in New Zealand
-            </h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4">The Helpful Guide to Probate in NZ (That Actually Makes Sense)</h2>
             <p className="text-lg md:text-xl mb-6">
               Expert guidance to navigate the probate process with ease and confidence.
             </p>
@@ -34,12 +27,6 @@ const Hero: React.FC = () => {
                 className="bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
               >
                 Download Free PDF
-              </button>
-              <button 
-                onClick={scrollToCalculator}
-                className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all font-bold py-3 px-6 rounded-md text-center"
-              >
-                Calculate Costs
               </button>
             </div>
           </div>
@@ -69,12 +56,6 @@ const Hero: React.FC = () => {
                 className="bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
               >
                 Download Free PDF
-              </button>
-              <button 
-                onClick={scrollToCalculator}
-                className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all font-bold py-3 px-6 rounded-md text-center"
-              >
-                Calculate Costs
               </button>
             </div>
           </div>
