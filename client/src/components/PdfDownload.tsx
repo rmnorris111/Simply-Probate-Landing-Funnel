@@ -36,9 +36,7 @@ const PdfDownload: React.FC = () => {
             </button>
 
             <div className="mt-6">
-              <p className="text-sm text-gray-500">
-                📄 Comprehensive 15-page guide covering all aspects of probate in New Zealand
-              </p>
+              <p className="text-sm text-gray-500">📄 Comprehensive 20-page guide covering all aspects of probate in New Zealand</p>
             </div>
           </div>
 
