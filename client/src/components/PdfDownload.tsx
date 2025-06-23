@@ -1,67 +1,10 @@
-import React, { useState } from 'react';
-import { toast } from '@/hooks/use-toast';
-
-interface FormData {
-  name: string;
-  email: string;
-  phone: string;
-}
+import React from 'react';
 
 const PdfDownload: React.FC = () => {
-  const [formSubmitting, setFormSubmitting] = useState(false);
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    phone: ''
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in your name and email address.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setFormSubmitting(true);
-
-    try {
-      // Here you would typically send the data to your backend
-      // For now, we'll simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      toast({
-        title: "Success!",
-        description: "Your free probate guide will be sent to your email shortly.",
-      });
-
-      // Reset form
-      setFormData({ name: '', email: '', phone: '' });
-      
-      // In a real application, you would trigger the PDF download here
-      // window.open('/path-to-your-pdf.pdf', '_blank');
-      
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive"
-      });
-    } finally {
-      setFormSubmitting(false);
-    }
+  const handleDownload = () => {
+    // This will redirect to your external form/landing page where users can enter their details
+    // You can replace this URL with your actual form URL
+    window.open('https://your-form-url.com', '_blank');
   };
 
   return (
@@ -76,75 +19,23 @@ const PdfDownload: React.FC = () => {
             including timelines, costs, and what to expect every step of the way.
           </p>
           
-          {/* Download Form */}
-          <div className="bg-light rounded-lg shadow-md p-6 md:p-8">
-            <div className="mb-6">
-              <h3 className="text-xl font-heading font-semibold mb-4 text-center">
-                Enter Your Details to Download
-              </h3>
-              <p className="text-gray-600 text-center mb-6">
-                We'll send the PDF guide directly to your email and never spam you.
-              </p>
-            </div>
+          {/* Download Button */}
+          <div className="bg-light rounded-lg shadow-md p-6 md:p-8 text-center">
+            <h3 className="text-xl font-heading font-semibold mb-4">
+              Ready to Download Your Free Guide?
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Click the button below to access your free PDF guide. You'll be asked to enter your email details to receive the download link.
+            </p>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-transparent"
-                  placeholder="Enter your full name"
-                />
-              </div>
+            <button
+              onClick={handleDownload}
+              className="w-full bg-secondary hover:bg-opacity-90 text-white font-bold py-4 px-6 rounded-md transition-all"
+            >
+              Download Free PDF Guide
+            </button>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-transparent"
-                  placeholder="Enter your email address"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number (Optional)
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-secondary focus:border-transparent"
-                  placeholder="Enter your phone number"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={formSubmitting}
-                className="w-full bg-secondary hover:bg-opacity-90 disabled:opacity-50 text-white font-bold py-4 px-6 rounded-md transition-all"
-              >
-                {formSubmitting ? 'Sending...' : 'Download Free PDF Guide'}
-              </button>
-            </form>
-
-            <div className="mt-6 text-center">
+            <div className="mt-6">
               <p className="text-sm text-gray-500">
                 📄 Comprehensive 15-page guide covering all aspects of probate in New Zealand
               </p>
