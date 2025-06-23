@@ -17,19 +17,13 @@ const CallToAction: React.FC = () => {
         <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
           Download our comprehensive guide to understand the probate process and get started on the right path.
         </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <div className="flex justify-center">
           <button 
             onClick={scrollToDownload}
             className="bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
           >
             Download Free PDF
           </button>
-          <a 
-            href="tel:0276036144" 
-            className="bg-white hover:bg-opacity-90 transition-all text-primary font-bold py-3 px-6 rounded-md text-center"
-          >
-            <span className="mr-2">📞</span>Call 027 603 6144
-          </a>
         </div>
       </div>
     </section>
