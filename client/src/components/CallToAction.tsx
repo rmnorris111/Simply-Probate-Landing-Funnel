@@ -1,8 +1,27 @@
 import React from 'react';
 
+// Declare dataLayer for TypeScript
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 const CallToAction: React.FC = () => {
   const scrollToDownload = () => {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSeyK4FzJQsJZcjCfE6Koi_zEJx2T60v04IIaTIg2NsCKtNi9w/viewform?usp=header', '_blank');
+    // Track CTA button click in Google Tag Manager
+    if (typeof window !== 'undefined' && window.dataLayer) {
+      window.dataLayer.push({
+        'event': 'pdf_download_click',
+        'button_location': 'call_to_action',
+        'user_action': 'download_guide'
+      });
+    }
+    
+    // Small delay to ensure tracking fires before redirect
+    setTimeout(() => {
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLSeyK4FzJQsJZcjCfE6Koi_zEJx2T60v04IIaTIg2NsCKtNi9w/viewform?usp=header', '_blank');
+    }, 100);
   };
 
   return (

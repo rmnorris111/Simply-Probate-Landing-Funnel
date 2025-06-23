@@ -130,6 +130,7 @@ Simply Probate is a full-stack web application designed as a squeeze page for PD
 - Database: DATABASE_URL for PostgreSQL connection (when implemented)
 
 ## Changelog
+- June 23, 2025. Added comprehensive Google Tag Manager tracking to all PDF download buttons with specific location identifiers for conversion tracking
 - June 22, 2025. Migrated from Replit Agent to Replit environment - removed quiz and chatbot functionality, added PDF download squeeze page
 - June 18, 2025. Initial setup
 
