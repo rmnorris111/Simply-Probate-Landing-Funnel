@@ -1,9 +1,32 @@
 import React from 'react';
 import VideoPlayer from '@/components/ui/video-player';
 
+// Declare dataLayer for TypeScript
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 const Hero: React.FC = () => {
-  const scrollToDownload = () => {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSeyK4FzJQsJZcjCfE6Koi_zEJx2T60v04IIaTIg2NsCKtNi9w/viewform?usp=header', '_blank');
+  const scrollToDownload = (buttonLocation: string) => {
+    // Track button click in Google Tag Manager
+    if (typeof window !== 'undefined' && window.dataLayer) {
+      window.dataLayer.push({
+        'event': 'pdf_download_click',
+        'button_location': buttonLocation,
+        'user_action': 'download_guide'
+      });
+    }
+    
+    // Small delay to ensure tracking fires before redirect
+    setTimeout(() => {
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLSeyK4FzJQsJZcjCfE6Koi_zEJx2T60v04IIaTIg2NsCKtNi9w/viewform?usp=header', '_blank');
+    }, 100);
+  };
+
+  const handleDownloadClick = (buttonLocation: string) => () => {
+    scrollToDownload(buttonLocation);
   };
 
   
@@ -18,7 +41,7 @@ const Hero: React.FC = () => {
             <p className="text-lg md:text-xl mb-6">Download our FREE 20-page guide and learn exactly what to do, when to do it, and how much it costs - written for real people, not lawyers.</p>
             <div className="flex flex-col sm:flex-row gap-3">
               <button 
-                onClick={scrollToDownload}
+                onClick={handleDownloadClick('hero_desktop')}
                 className="bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
               >
                 Download Free PDF
@@ -47,7 +70,7 @@ const Hero: React.FC = () => {
           <div className="md:hidden mt-6 text-center">
             <div className="flex flex-col gap-3">
               <button 
-                onClick={scrollToDownload}
+                onClick={handleDownloadClick('hero_mobile')}
                 className="bg-secondary hover:bg-opacity-90 transition-all text-white font-bold py-3 px-6 rounded-md text-center"
               >
                 Download Free PDF
