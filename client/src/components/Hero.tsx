@@ -18,9 +18,7 @@ const Hero: React.FC = () => {
           {/* Text content - hidden on mobile, shown on desktop */}
           <div className="hidden md:block md:w-1/2 md:mb-0 md:pr-8">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4">The Helpful Guide to Probate in NZ (That Actually Makes Sense)</h2>
-            <p className="text-lg md:text-xl mb-6">
-              Expert guidance to navigate the probate process with ease and confidence.
-            </p>
+            <p className="text-lg md:text-xl mb-6">Download our FREE 20-page guide and learn exactly what to do, when to do it, and how much it costs - written for real people, not lawyers.</p>
             <div className="flex flex-col sm:flex-row gap-3">
               <button 
                 onClick={scrollToDownload}
